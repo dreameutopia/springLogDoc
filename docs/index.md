@@ -21,12 +21,6 @@ features:
 
 欢迎来到 Spring 框架学习文档！这里汇集了关于 Spring 生态系统的核心概念、最佳实践和实用指南。
 
-## 最新文章
-
-- [Spring Boot 入门](/blog/spring-boot-intro)
-- [Spring Data JPA 实践](/blog/spring-data-jpa)
-- [Spring Security 基础](/blog/spring-security-basics)
-
 ## 关于本站
 
 本文档旨在帮助开发者快速掌握 Spring 框架的各个方面，从基础概念到高级应用，提供全面的学习资料和实践案例。
