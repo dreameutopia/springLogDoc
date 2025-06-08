@@ -3,10 +3,7 @@ layout: home
 hero:
   name: Spring Log Doc
   text: Spring 框架学习文档
-  tagline: 全面了解 Spring 生态系统的核心概念和最佳实践
-  image:
-    src: /logo.png
-    alt: Spring Logo
+  tagline: 了解 Spring 生态系统的核心概念和最佳实践
   actions:
     - theme: brand
       text: 开始学习
@@ -14,10 +11,10 @@ hero:
 features:
   - icon: 🚀
     title: Spring Boot
-    details: 快速构建基于 Spring 的生产级应用程序，简化配置过程
+    details: 快速构建基于 Spring 的应用程序，简化配置过程
 ---
 
-# Spring 框架学习文档
+## Spring 框架学习文档
 
 欢迎来到 Spring 框架学习文档！这里汇集了关于 Spring 生态系统的核心概念、最佳实践和实用指南。
 
