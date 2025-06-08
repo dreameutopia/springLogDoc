@@ -1,4 +1,4 @@
----
+﻿---
 layout: home
 hero:
   name: Spring Log Doc
