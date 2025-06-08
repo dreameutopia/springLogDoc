@@ -181,6 +181,40 @@ function createMetricAnimation() {
   });
 }
 
+// 合作商滚动展示效果
+function createPartnerScroll() {
+  const partnerContainer = document.querySelector('.partners-scroll-container');
+  if (!partnerContainer) return;
+  
+  const partnerTrack = partnerContainer.querySelector('.partners-track');
+  if (!partnerTrack) return;
+  
+  // 复制一份内容用于无缝滚动
+  const clone = partnerTrack.cloneNode(true);
+  partnerContainer.appendChild(clone);
+  
+  // 设置第一个轨道的样式
+  partnerTrack.style.display = 'flex';
+  partnerTrack.style.animation = 'partnersScroll 30s linear infinite';
+  
+  // 设置第二个轨道的样式(克隆的)
+  clone.style.display = 'flex';
+  clone.style.animation = 'partnersScroll 30s linear infinite';
+  clone.style.animationDelay = '15s';
+  
+  // 当鼠标悬停时暂停动画
+  partnerContainer.addEventListener('mouseenter', () => {
+    partnerTrack.style.animationPlayState = 'paused';
+    clone.style.animationPlayState = 'paused';
+  });
+  
+  // 当鼠标离开时继续动画
+  partnerContainer.addEventListener('mouseleave', () => {
+    partnerTrack.style.animationPlayState = 'running';
+    clone.style.animationPlayState = 'running';
+  });
+}
+
 // 导出函数以便在主题中使用
 export function setupEffects() {
   if (typeof window !== 'undefined') {
@@ -195,6 +229,7 @@ export function setupEffects() {
         createDataFlowEffect();
         createTypingEffect();
         createMetricAnimation();
+        createPartnerScroll();
       }, 500);
       
       // 添加鼠标悬停效果

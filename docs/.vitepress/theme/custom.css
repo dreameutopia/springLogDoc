@@ -362,4 +362,95 @@ a:not(.VPButton):not(.custom-button):not(.VPLink):hover::after {
 @keyframes flowAnimation {
   0% { background-position: 100% 0; }
   100% { background-position: -100% 0; }
+}
+
+/* 合作商滚动样式 */
+.partners-section {
+  margin: 4rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.partners-section h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--vp-c-text-1);
+}
+
+.partners-scroll-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 1rem 0;
+}
+
+.partners-track {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  min-width: 100%;
+  will-change: transform;
+}
+
+.partner-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  min-width: 120px;
+  transition: transform 0.3s, filter 0.3s;
+}
+
+.partner-item:hover {
+  transform: translateY(-5px);
+}
+
+.partner-logo {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 0.5rem;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: filter 0.3s, opacity 0.3s;
+}
+
+.partner-item:hover .partner-logo {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.partner-name {
+  font-size: 0.9rem;
+  text-align: center;
+  color: var(--vp-c-text-2);
+}
+
+@keyframes partnersScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% - 2rem));
+  }
+}
+
+/* 合作商滚动区域渐变边缘 */
+.partners-scroll-container::before,
+.partners-scroll-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 100px;
+  height: 100%;
+  z-index: 1;
+}
+
+.partners-scroll-container::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.partners-scroll-container::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
 } 
