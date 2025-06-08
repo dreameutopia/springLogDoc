@@ -1,11 +1,11 @@
 :root {
-  --vp-c-brand: #6366f1;
-  --vp-c-brand-light: #818cf8;
-  --vp-c-brand-lighter: #a5b4fc;
-  --vp-c-brand-dark: #4f46e5;
-  --vp-c-brand-darker: #4338ca;
+  --vp-c-brand: #0ea5e9;
+  --vp-c-brand-light: #38bdf8;
+  --vp-c-brand-lighter: #7dd3fc;
+  --vp-c-brand-dark: #0284c7;
+  --vp-c-brand-darker: #0369a1;
   
-  --vp-c-sponsor: #6366f1;
+  --vp-c-sponsor: #0ea5e9;
   
   --vp-c-bg-nav: rgba(255, 255, 255, 0.9);
 }
@@ -19,7 +19,7 @@
 .VPFeature {
   border-radius: 12px;
   background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(14, 165, 233, 0.1);
 }
 
 /* 自定义模块卡片 */
@@ -36,7 +36,7 @@
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
-  border: 1px solid rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(14, 165, 233, 0.1);
 }
 
 .spring-module-card:hover {
@@ -81,7 +81,7 @@
 
 /* 学习路径样式 */
 .learning-path {
-  background-color: rgba(99, 102, 241, 0.1);
+  background-color: rgba(14, 165, 233, 0.05);
   border-radius: 12px;
   padding: 24px;
   margin: 32px 0;
@@ -109,7 +109,7 @@
 
 /* 页脚样式 */
 .VPFooter {
-  border-top: 1px solid rgba(99, 102, 241, 0.1);
+  border-top: 1px solid rgba(14, 165, 233, 0.1);
   padding-top: 24px;
 }
 
@@ -181,4 +181,185 @@ a:not(.VPButton):not(.custom-button):not(.VPLink)::after {
 a:not(.VPButton):not(.custom-button):not(.VPLink):hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
+}
+
+/* 数据可视化样式 */
+.metric-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.metric-card {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, rgba(56, 189, 248, 0.1) 100%);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(14, 165, 233, 0.15);
+}
+
+.metric-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--vp-c-brand) 0%, var(--vp-c-brand-light) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--vp-c-brand-dark);
+  margin-bottom: 0.5rem;
+}
+
+.metric-label {
+  color: var(--vp-c-text-2);
+  font-size: 0.9rem;
+}
+
+/* 终端风格代码块 */
+.terminal-window {
+  background: #1e293b;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 2rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 6px;
+  margin-right: 1rem;
+}
+
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.terminal-dot.red { background-color: #ff5f56; }
+.terminal-dot.yellow { background-color: #ffbd2e; }
+.terminal-dot.green { background-color: #27c93f; }
+
+.terminal-title {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.terminal-content {
+  color: #e2e8f0;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.terminal-prompt {
+  color: #0ea5e9;
+  margin-right: 0.5rem;
+}
+
+.terminal-command {
+  color: #e2e8f0;
+}
+
+.terminal-output {
+  color: #94a3b8;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* 代理技术特性样式 */
+.agent-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.agent-feature {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border-top: 4px solid var(--vp-c-brand);
+  position: relative;
+  overflow: hidden;
+}
+
+.agent-feature::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.03) 0%, rgba(56, 189, 248, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.agent-feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(14, 165, 233, 0.15);
+}
+
+.agent-feature:hover::before {
+  opacity: 1;
+}
+
+.agent-feature-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--vp-c-brand);
+}
+
+.agent-feature h3 {
+  margin: 0 0 0.75rem 0;
+  color: var(--vp-c-brand-dark);
+}
+
+.agent-feature p {
+  margin: 0;
+  color: var(--vp-c-text-2);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* 数据流动动画 */
+.data-flow {
+  height: 4px;
+  background: linear-gradient(90deg, rgba(14, 165, 233, 0), var(--vp-c-brand), rgba(14, 165, 233, 0));
+  background-size: 200% 100%;
+  animation: flowAnimation 2s infinite;
+  border-radius: 2px;
+  margin: 2rem 0;
+}
+
+@keyframes flowAnimation {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
 } 

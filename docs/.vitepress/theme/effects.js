@@ -1,6 +1,6 @@
 // 鼠标拖尾效果
 function createMouseTrail() {
-  const colors = ['#6366f1', '#818cf8', '#a5b4fc', '#8b5cf6', '#4f46e5'];
+  const colors = ['#0ea5e9', '#38bdf8', '#7dd3fc', '#0284c7', '#0369a1'];
   const numParticles = 20;
   const particles = [];
   
@@ -71,7 +71,7 @@ function createMouseTrail() {
 
 // 点击烟花效果
 function createClickFireworks() {
-  const colors = ['#6366f1', '#818cf8', '#a5b4fc', '#8b5cf6', '#4f46e5', '#c4b5fd'];
+  const colors = ['#0ea5e9', '#38bdf8', '#7dd3fc', '#0284c7', '#0369a1', '#bae6fd'];
   
   // 创建烟花容器
   const fireworksContainer = document.createElement('div');
@@ -138,13 +138,78 @@ function createClickFireworks() {
   }
 }
 
+// 数据流动效果
+function createDataFlowEffect() {
+  const dataFlowElements = document.querySelectorAll('.data-flow');
+  
+  dataFlowElements.forEach(element => {
+    // 已经在CSS中设置了动画，这里只需确保元素存在
+    if (element) {
+      element.style.visibility = 'visible';
+    }
+  });
+}
+
+// 终端打字效果
+function createTypingEffect() {
+  const terminalContent = document.querySelector('.terminal-content');
+  if (terminalContent) {
+    const lines = terminalContent.querySelectorAll('div');
+    lines.forEach((line, index) => {
+      line.style.opacity = '0';
+      setTimeout(() => {
+        line.style.opacity = '1';
+        line.style.transition = 'opacity 0.3s ease';
+      }, index * 400);
+    });
+  }
+}
+
+// 监控卡片动画
+function createMetricAnimation() {
+  const metricCards = document.querySelectorAll('.metric-card');
+  
+  metricCards.forEach((card, index) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    
+    setTimeout(() => {
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+      card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    }, 300 + index * 100);
+  });
+}
+
 // 导出函数以便在主题中使用
 export function setupEffects() {
   if (typeof window !== 'undefined') {
     // 确保在浏览器环境中运行
     window.addEventListener('DOMContentLoaded', () => {
+      // 基础特效
       createMouseTrail();
       createClickFireworks();
+      
+      // 监控平台特定特效
+      setTimeout(() => {
+        createDataFlowEffect();
+        createTypingEffect();
+        createMetricAnimation();
+      }, 500);
+      
+      // 添加鼠标悬停效果
+      const cards = document.querySelectorAll('.ecosystem-card, .agent-feature');
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          card.style.transform = 'translateY(-10px)';
+          card.style.boxShadow = '0 15px 30px rgba(14, 165, 233, 0.2)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'translateY(-5px)';
+          card.style.boxShadow = '0 12px 24px rgba(14, 165, 233, 0.15)';
+        });
+      });
     });
   }
 } 

@@ -2,49 +2,49 @@
 layout: home
 hero:
   name: Spring Log Doc
-  text: Spring 框架学习文档
-  tagline: 全面了解 Spring 生态系统的核心概念和最佳实践
+  text: Spring Agent 监控平台
+  tagline: 智能监控与优化 Spring 应用的一站式解决方案
   image:
     src: /logo.png
     alt: Spring Logo
   actions:
     - theme: brand
-      text: 开始学习
+      text: 快速开始
       link: /guide/
     - theme: alt
-      text: 查看示例
+      text: 查看演示
       link: /examples/
 head:
   - - meta
     - name: keywords
-      content: spring, java, spring boot, spring mvc, spring cloud, 教程, 学习
+      content: spring, java, spring boot, agent, 监控, 日志分析, 性能优化, AI, 智能监控
   - - meta
     - name: description
-      content: 全面的Spring框架学习文档，包含从入门到精通的所有内容
+      content: 利用Agent技术智能监控Spring应用，快速分析日志和代码，高效定制修复方案
 features:
-  - icon: 🚀
-    title: Spring Boot
-    details: 快速构建基于 Spring 的生产级应用程序，简化配置过程
-    link: /quickstart/
-  - icon: 📚
-    title: 全面的学习资料
-    details: 从基础概念到高级应用，提供全面的学习资料和实践案例
+  - icon: 📊
+    title: 智能监控
+    details: 基于Agent技术的全方位监控，实时掌握应用状态，自动预警潜在问题
     link: /guide/
   - icon: 🔍
-    title: 最佳实践
-    details: 汇集了关于 Spring 生态系统的核心概念、最佳实践和实用指南
+    title: 日志智能分析
+    details: 快速定位异常日志，智能分析根因，提供精准修复建议
     link: /practice/
-  - icon: 🔄
-    title: Spring MVC
-    details: 掌握强大的Web框架，构建灵活且可扩展的Web应用程序和RESTful API
-    link: /guide/core-concepts
-  - icon: 🛡️
-    title: Spring Security
-    details: 学习如何保护您的应用程序，实现身份验证和授权，防止常见的安全威胁
+  - icon: 🚀
+    title: 性能优化
+    details: 自动识别性能瓶颈，提供定制化优化方案，提升应用响应速度
     link: /advanced/
   - icon: 💾
-    title: Spring Data
-    details: 简化数据访问层开发，支持多种数据库技术，包括关系型数据库和NoSQL
+    title: 内存管理
+    details: 监控内存使用情况，识别内存泄漏，优化GC策略，提高应用稳定性
+    link: /advanced/
+  - icon: 🤖
+    title: AI 问答
+    details: 基于MCP协议的实时问答，快速解答Spring相关问题，辅助开发调试
+    link: /guide/core-concepts
+  - icon: 📈
+    title: 可视化报告
+    details: 生成全面的性能分析报告，为Spring AI项目提供Agent优化建议
     link: /practice/data
 
 footer: 
@@ -54,55 +54,163 @@ footer:
   copyright: Copyright © 2023-present Spring Log Doc
 ---
 
+<div class="data-flow"></div>
+
+<div class="animated-section">
+  <div class="section-header">
+    <div class="section-icon">📡</div>
+    <h2>智能监控平台</h2>
+  </div>
+  
+  <div class="platform-intro">
+    <p>Spring Log Doc 是一个专为 Spring Boot 应用设计的智能监控平台，利用先进的 Agent 技术实时监控应用状态，快速分析日志及代码，高效定制修复方案。</p>
+  </div>
+  
+  <div class="metric-cards">
+    <div class="metric-card">
+      <div class="metric-icon">⚡</div>
+      <div class="metric-value">95<span>%</span></div>
+      <div class="metric-label">问题诊断准确率</div>
+    </div>
+    
+    <div class="metric-card">
+      <div class="metric-icon">⏱️</div>
+      <div class="metric-value">60<span>%</span></div>
+      <div class="metric-label">故障排查时间减少</div>
+    </div>
+    
+    <div class="metric-card">
+      <div class="metric-icon">📈</div>
+      <div class="metric-value">40<span>%</span></div>
+      <div class="metric-label">平均性能提升</div>
+    </div>
+    
+    <div class="metric-card">
+      <div class="metric-icon">🔄</div>
+      <div class="metric-value">24/7</div>
+      <div class="metric-label">全天候监控</div>
+    </div>
+  </div>
+</div>
+
+<div class="terminal-window">
+  <div class="terminal-header">
+    <div class="terminal-dots">
+      <div class="terminal-dot red"></div>
+      <div class="terminal-dot yellow"></div>
+      <div class="terminal-dot green"></div>
+    </div>
+    <div class="terminal-title">spring-agent-cli</div>
+  </div>
+  <div class="terminal-content">
+    <div><span class="terminal-prompt">$</span> <span class="terminal-command">spring-agent connect --app myservice</span></div>
+    <div class="terminal-output">正在连接到应用 myservice...</div>
+    <div class="terminal-output">已连接！正在收集指标...</div>
+    <div class="terminal-output">检测到内存使用异常，分析中...</div>
+    <div class="terminal-output">发现可能的内存泄漏: com.example.service.UserService:142</div>
+    <div class="terminal-output">生成修复建议...</div>
+    <div><span class="terminal-prompt">$</span> <span class="terminal-command">spring-agent ask "如何优化我的数据库查询?"</span></div>
+    <div class="terminal-output">根据您的应用上下文，建议以下优化方案:
+1. 添加适当的索引: 为user_id列添加索引
+2. 优化查询: 使用分页替代全表扫描
+3. 使用缓存: 考虑为频繁访问的数据添加缓存层</div>
+  </div>
+</div>
+
+<div class="animated-section">
+  <div class="section-header">
+    <div class="section-icon">🔧</div>
+    <h2>核心功能</h2>
+  </div>
+  
+  <div class="agent-features">
+    <div class="agent-feature">
+      <div class="agent-feature-icon">📊</div>
+      <h3>Spring Actuator 增强</h3>
+      <p>基于Spring Actuator构建的增强监控，提供更全面的指标收集和分析，支持自定义监控点。</p>
+    </div>
+    
+    <div class="agent-feature">
+      <div class="agent-feature-icon">🔍</div>
+      <h3>智能日志分析</h3>
+      <p>AI驱动的日志分析引擎，自动识别异常模式，关联代码上下文，提供精准诊断。</p>
+    </div>
+    
+    <div class="agent-feature">
+      <div class="agent-feature-icon">📈</div>
+      <h3>系统级监控</h3>
+      <p>全方位监控JVM、CPU、内存、线程、数据库连接池等系统资源，及早发现潜在问题。</p>
+    </div>
+    
+    <div class="agent-feature">
+      <div class="agent-feature-icon">⚡</div>
+      <h3>性能优化建议</h3>
+      <p>基于应用实际运行数据，提供针对性的性能优化建议，包括代码层面和配置层面。</p>
+    </div>
+    
+    <div class="agent-feature">
+      <div class="agent-feature-icon">🧠</div>
+      <h3>MCP实时问答</h3>
+      <p>基于模型上下文协议(MCP)的智能问答系统，结合应用上下文提供精准解答。</p>
+    </div>
+    
+    <div class="agent-feature">
+      <div class="agent-feature-icon">🔄</div>
+      <h3>Spring AI 集成</h3>
+      <p>与Spring AI项目无缝集成，提供模型性能分析和优化建议，提升AI应用效率。</p>
+    </div>
+  </div>
+</div>
+
 <div class="animated-section">
   <div class="section-header">
     <div class="section-icon">🎓</div>
-    <h2>学习路径</h2>
+    <h2>使用指南</h2>
   </div>
   <div class="learning-path">
     <div class="path-intro">
-      <h3>从入门到精通</h3>
-      <p>按照以下路径学习，循序渐进掌握Spring框架</p>
+      <h3>从部署到优化</h3>
+      <p>按照以下步骤，快速掌握Spring Agent监控平台</p>
     </div>
     <div class="path-steps">
       <div class="step">
         <div class="step-number">1</div>
         <div class="step-content">
-          <h4><a href="/preparation/">环境搭建</a></h4>
-          <p>准备开发环境，安装必要工具</p>
+          <h4><a href="/preparation/">环境准备</a></h4>
+          <p>安装Agent组件，配置监控环境</p>
         </div>
       </div>
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
-          <h4><a href="/guide/">基础指南</a></h4>
-          <p>了解Spring核心概念和基本原理</p>
+          <h4><a href="/guide/">基础配置</a></h4>
+          <p>了解核心概念，完成基础配置</p>
         </div>
       </div>
       <div class="step">
         <div class="step-number">3</div>
         <div class="step-content">
-          <h4><a href="/quickstart/">快速入门</a></h4>
-          <p>创建您的第一个Spring应用程序</p>
+          <h4><a href="/quickstart/">接入应用</a></h4>
+          <p>将Agent接入您的Spring应用</p>
         </div>
       </div>
       <div class="step">
         <div class="step-number">4</div>
         <div class="step-content">
-          <h4><a href="/practice/">实战演练</a></h4>
-          <p>通过实际案例学习Spring开发</p>
+          <h4><a href="/practice/">监控分析</a></h4>
+          <p>查看监控数据，分析应用状态</p>
         </div>
       </div>
       <div class="step">
         <div class="step-number">5</div>
         <div class="step-content">
-          <h4><a href="/advanced/">高级特性</a></h4>
-          <p>深入了解Spring的高级功能</p>
+          <h4><a href="/advanced/">优化应用</a></h4>
+          <p>应用优化建议，提升系统性能</p>
         </div>
       </div>
     </div>
     <div class="path-action">
-      <a href="/guide/" class="glow-button">开始学习之旅</a>
+      <a href="/guide/" class="glow-button">开始部署</a>
     </div>
   </div>
 </div>
@@ -110,21 +218,21 @@ footer:
 <div class="animated-section">
   <div class="section-header">
     <div class="section-icon">🌐</div>
-    <h2>Spring 生态系统</h2>
+    <h2>监控模块</h2>
   </div>
   
   <div class="ecosystem-grid">
     <div class="ecosystem-card" data-aos="fade-up">
       <div class="card-header">
-        <div class="card-icon">🌱</div>
-        <h3>Spring Framework</h3>
+        <div class="card-icon">📊</div>
+        <h3>应用监控</h3>
       </div>
       <div class="card-content">
-        <p>核心框架，提供依赖注入、事务管理、Web MVC、数据访问等基础功能</p>
+        <p>全面监控Spring应用运行状态，包括请求处理、异常统计、业务指标等</p>
         <div class="card-features">
-          <span>依赖注入</span>
-          <span>AOP</span>
-          <span>事务管理</span>
+          <span>请求追踪</span>
+          <span>异常监控</span>
+          <span>业务指标</span>
         </div>
       </div>
       <div class="card-action">
@@ -134,15 +242,15 @@ footer:
     
     <div class="ecosystem-card" data-aos="fade-up" data-aos-delay="100">
       <div class="card-header">
-        <div class="card-icon">🚀</div>
-        <h3>Spring Boot</h3>
+        <div class="card-icon">⚙️</div>
+        <h3>系统监控</h3>
       </div>
       <div class="card-content">
-        <p>简化Spring应用开发，采用"约定优于配置"的理念，快速构建生产级应用</p>
+        <p>监控JVM、CPU、内存、线程等系统资源，及早发现潜在问题</p>
         <div class="card-features">
-          <span>自动配置</span>
-          <span>内嵌服务器</span>
-          <span>Starter依赖</span>
+          <span>JVM监控</span>
+          <span>资源使用</span>
+          <span>GC分析</span>
         </div>
       </div>
       <div class="card-action">
@@ -152,73 +260,73 @@ footer:
     
     <div class="ecosystem-card" data-aos="fade-up" data-aos-delay="200">
       <div class="card-header">
-        <div class="card-icon">☁️</div>
-        <h3>Spring Cloud</h3>
+        <div class="card-icon">📝</div>
+        <h3>日志分析</h3>
       </div>
       <div class="card-content">
-        <p>构建分布式系统和微服务架构的工具集，提供服务发现、配置管理等功能</p>
+        <p>智能分析应用日志，自动识别异常模式，关联代码上下文</p>
         <div class="card-features">
-          <span>服务发现</span>
-          <span>配置中心</span>
-          <span>断路器</span>
+          <span>异常检测</span>
+          <span>模式识别</span>
+          <span>根因分析</span>
         </div>
       </div>
       <div class="card-action">
-        <a href="/advanced/" class="card-button">探索微服务</a>
+        <a href="/advanced/" class="card-button">日志分析</a>
       </div>
     </div>
     
     <div class="ecosystem-card" data-aos="fade-up" data-aos-delay="300">
       <div class="card-header">
-        <div class="card-icon">🔄</div>
-        <h3>Spring WebFlux</h3>
+        <div class="card-icon">💾</div>
+        <h3>数据库监控</h3>
       </div>
       <div class="card-content">
-        <p>响应式Web框架，支持非阻塞API和Reactive Streams，适用于高并发场景</p>
+        <p>监控数据库连接、SQL执行情况，识别慢查询，提供优化建议</p>
         <div class="card-features">
-          <span>响应式</span>
-          <span>非阻塞</span>
-          <span>高并发</span>
+          <span>连接池</span>
+          <span>慢查询</span>
+          <span>索引建议</span>
         </div>
       </div>
       <div class="card-action">
-        <a href="/advanced/" class="card-button">响应式编程</a>
+        <a href="/advanced/" class="card-button">数据库优化</a>
       </div>
     </div>
     
     <div class="ecosystem-card" data-aos="fade-up" data-aos-delay="400">
       <div class="card-header">
-        <div class="card-icon">🛡️</div>
-        <h3>Spring Security</h3>
+        <div class="card-icon">🔄</div>
+        <h3>API监控</h3>
       </div>
       <div class="card-content">
-        <p>强大的安全框架，提供身份验证、授权和保护功能，防止常见的安全攻击</p>
+        <p>监控REST API的调用情况，包括响应时间、错误率、调用频率等</p>
         <div class="card-features">
-          <span>认证</span>
-          <span>授权</span>
-          <span>OAuth2</span>
+          <span>响应时间</span>
+          <span>错误率</span>
+          <span>调用统计</span>
         </div>
       </div>
       <div class="card-action">
-        <a href="/advanced/" class="card-button">安全指南</a>
+        <a href="/advanced/" class="card-button">API分析</a>
       </div>
     </div>
     
     <div class="ecosystem-card" data-aos="fade-up" data-aos-delay="500">
       <div class="card-header">
-        <div class="card-icon">💾</div>
-        <h3>Spring Data</h3>
+        <div class="card-icon">🤖</div>
+        <h3>AI助手</h3>
       </div>
       <div class="card-content">
-        <p>简化数据访问层开发，支持JPA、MongoDB、Redis等多种数据存储技术</p>
+        <p>基于MCP协议的智能问答系统，结合应用上下文提供精准解答</p>
         <div class="card-features">
-          <span>ORM</span>
-          <span>NoSQL</span>
-          <span>仓储模式</span>
+          <span>实时问答</span>
+          <span>上下文感知</span>
+          <span>代码建议</span>
         </div>
       </div>
       <div class="card-action">
-        <a href="/practice/data" class="card-button">数据访问</a>
+        <a href="/practice/data" class="card-button">AI交互</a>
       </div>
     </div>
   </div>
@@ -228,15 +336,15 @@ footer:
   <div class="notice-icon">ℹ️</div>
   <div class="notice-content">
     <h3>版本说明</h3>
-    <p>本文档基于Spring Boot 3.x和Spring Framework 6.x版本。如果您使用的是早期版本，部分API和功能可能有所不同。</p>
+    <p>本平台支持Spring Boot 2.x和3.x版本，兼容Spring Framework 5.x和6.x。如果您使用的是早期版本，部分功能可能受限。</p>
   </div>
 </div>
 
 <style>
 :root {
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(120deg, #6366f1 30%, #8b5cf6);
-  --vp-home-hero-image-background-image: linear-gradient(to bottom right, rgba(99, 102, 241, 0.8), rgba(139, 92, 246, 0.8));
+  --vp-home-hero-name-background: linear-gradient(120deg, #0ea5e9 30%, #38bdf8);
+  --vp-home-hero-image-background-image: linear-gradient(to bottom right, rgba(14, 165, 233, 0.8), rgba(56, 189, 248, 0.8));
   --vp-home-hero-image-filter: blur(72px);
 }
 
@@ -247,6 +355,14 @@ footer:
 .VPFeature:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 平台介绍样式 */
+.platform-intro {
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 900px;
 }
 
 /* 新增样式 */
@@ -603,14 +719,31 @@ if (typeof window !== 'undefined') {
     cards.forEach(card => {
       card.addEventListener('mouseenter', () => {
         card.style.transform = 'translateY(-10px)';
-        card.style.boxShadow = '0 15px 30px rgba(99, 102, 241, 0.2)';
+        card.style.boxShadow = '0 15px 30px rgba(14, 165, 233, 0.2)';
       });
       
       card.addEventListener('mouseleave', () => {
         card.style.transform = 'translateY(-5px)';
-        card.style.boxShadow = '0 12px 24px rgba(99, 102, 241, 0.15)';
+        card.style.boxShadow = '0 12px 24px rgba(14, 165, 233, 0.15)';
       });
     });
+    
+    // 添加终端打字效果
+    const typeTerminal = () => {
+      const terminalContent = document.querySelector('.terminal-content');
+      if (terminalContent) {
+        const lines = terminalContent.querySelectorAll('div');
+        lines.forEach((line, index) => {
+          line.style.opacity = '0';
+          setTimeout(() => {
+            line.style.opacity = '1';
+            line.style.transition = 'opacity 0.3s ease';
+          }, index * 400);
+        });
+      }
+    };
+    
+    setTimeout(typeTerminal, 800);
   });
 }
 </script> 
