@@ -115,8 +115,8 @@ footer:
 <style>
 :root {
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(120deg, #6db33f 30%, #34a853);
-  --vp-home-hero-image-background-image: linear-gradient(to bottom right, rgba(109, 179, 63, 0.8), rgba(52, 168, 83, 0.8));
+  --vp-home-hero-name-background: linear-gradient(120deg, #6366f1 30%, #8b5cf6);
+  --vp-home-hero-image-background-image: linear-gradient(to bottom right, rgba(99, 102, 241, 0.8), rgba(139, 92, 246, 0.8));
   --vp-home-hero-image-filter: blur(72px);
 }
 
