@@ -42,6 +42,8 @@ Authentication authentication = SecurityContextHolder.getContext().getAuthentica
 String currentUsername = authentication.getName();
 ```
 
+更多内容将在后续更新...
+
 ## 入门配置
 
 ### Maven 依赖
