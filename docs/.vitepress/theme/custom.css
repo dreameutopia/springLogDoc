@@ -1,0 +1,114 @@
+:root {
+  --vp-c-brand: #6db33f;
+  --vp-c-brand-light: #83c458;
+  --vp-c-brand-lighter: #a0d87b;
+  --vp-c-brand-dark: #4e8f2b;
+  --vp-c-brand-darker: #3d7121;
+  
+  --vp-c-sponsor: #6db33f;
+  
+  --vp-c-bg-nav: rgba(255, 255, 255, 0.9);
+}
+
+/* 导航栏毛玻璃效果 */
+.VPNav {
+  backdrop-filter: blur(8px);
+}
+
+/* 特性卡片样式 */
+.VPFeature {
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(109, 179, 63, 0.1);
+}
+
+/* 自定义模块卡片 */
+.spring-module-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin: 40px 0;
+}
+
+.spring-module-card {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(109, 179, 63, 0.1);
+}
+
+.spring-module-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-color: var(--vp-c-brand);
+}
+
+.spring-module-card h3 {
+  margin-top: 0;
+  color: var(--vp-c-brand);
+  display: flex;
+  align-items: center;
+}
+
+.spring-module-card h3 .icon {
+  margin-right: 8px;
+  font-size: 1.2em;
+}
+
+.spring-module-card p {
+  margin-bottom: 0;
+  color: var(--vp-c-text-2);
+}
+
+/* 自定义按钮 */
+.custom-button {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background-color: var(--vp-c-brand);
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  font-weight: 500;
+  margin-top: 16px;
+}
+
+.custom-button:hover {
+  background-color: var(--vp-c-brand-dark);
+}
+
+/* 学习路径样式 */
+.learning-path {
+  background-color: rgba(109, 179, 63, 0.1);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 32px 0;
+}
+
+.learning-path h2 {
+  margin-top: 0;
+  color: var(--vp-c-brand);
+}
+
+.learning-path ol {
+  padding-left: 20px;
+}
+
+.learning-path li {
+  margin-bottom: 8px;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .spring-module-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 页脚样式 */
+.VPFooter {
+  border-top: 1px solid rgba(109, 179, 63, 0.1);
+  padding-top: 24px;
+} 
