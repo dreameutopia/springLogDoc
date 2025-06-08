@@ -364,93 +364,134 @@ a:not(.VPButton):not(.custom-button):not(.VPLink):hover::after {
   100% { background-position: -100% 0; }
 }
 
-/* 合作商滚动样式 */
+/* 合作伙伴滚动样式 - 全局 */
 .partners-section {
   margin: 4rem 0;
-  position: relative;
-  overflow: hidden;
+  text-align: center;
 }
 
 .partners-section h2 {
-  text-align: center;
   margin-bottom: 2rem;
-  color: var(--vp-c-text-1);
+  font-size: 1.8rem;
+  background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
-.partners-scroll-container {
-  width: 100%;
-  overflow: hidden;
+.partners-container {
   position: relative;
-  padding: 1rem 0;
+  overflow: hidden;
+  padding: 1.5rem 0;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
-.partners-track {
+.partners-container::before,
+.partners-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.partners-container::before {
+  left: 0;
+  background: linear-gradient(to right, var(--vp-c-bg), transparent);
+}
+
+.partners-container::after {
+  right: 0;
+  background: linear-gradient(to left, var(--vp-c-bg), transparent);
+}
+
+.partners-scroll {
   display: flex;
-  align-items: center;
-  gap: 2rem;
-  min-width: 100%;
-  will-change: transform;
+  animation: scrollPartners 40s linear infinite;
+  gap: 3rem;
+}
+
+.partners-scroll:hover {
+  animation-play-state: paused;
 }
 
 .partner-item {
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-  min-width: 120px;
-  transition: transform 0.3s, filter 0.3s;
-}
-
-.partner-item:hover {
-  transform: translateY(-5px);
+  min-width: 140px;
 }
 
 .partner-logo {
-  width: 64px;
-  height: 64px;
-  margin-bottom: 0.5rem;
-  filter: grayscale(100%);
-  opacity: 0.7;
-  transition: filter 0.3s, opacity 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  width: 70px;
+  margin-bottom: 0.8rem;
+  transition: transform 0.3s;
 }
 
-.partner-item:hover .partner-logo {
-  filter: grayscale(0%);
-  opacity: 1;
+.partner-logo svg,
+.partner-logo img {
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .partner-name {
-  font-size: 0.9rem;
-  text-align: center;
-  color: var(--vp-c-text-2);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
-@keyframes partnersScroll {
+/* 为每个合作伙伴设置不同的颜色 */
+.partner-item:nth-child(8n+1) .partner-name {
+  color: #0ea5e9; /* 天蓝色 */
+}
+
+.partner-item:nth-child(8n+2) .partner-name {
+  color: #10b981; /* 翡翠绿 */
+}
+
+.partner-item:nth-child(8n+3) .partner-name {
+  color: #8b5cf6; /* 紫色 */
+}
+
+.partner-item:nth-child(8n+4) .partner-name {
+  color: #f59e0b; /* 琥珀色 */
+}
+
+.partner-item:nth-child(8n+5) .partner-name {
+  color: #ef4444; /* 红色 */
+}
+
+.partner-item:nth-child(8n+6) .partner-name {
+  color: #6366f1; /* 靛蓝色 */
+}
+
+.partner-item:nth-child(8n+7) .partner-name {
+  color: #ec4899; /* 粉色 */
+}
+
+.partner-item:nth-child(8n+8) .partner-name {
+  color: #14b8a6; /* 蓝绿色 */
+}
+
+.partner-item:hover .partner-logo {
+  transform: scale(1.15);
+}
+
+@keyframes scrollPartners {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-100% - 2rem));
+    transform: translateX(calc(-50%));
   }
-}
-
-/* 合作商滚动区域渐变边缘 */
-.partners-scroll-container::before,
-.partners-scroll-container::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 100px;
-  height: 100%;
-  z-index: 1;
-}
-
-.partners-scroll-container::before {
-  left: 0;
-  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-}
-
-.partners-scroll-container::after {
-  right: 0;
-  background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
 } 
