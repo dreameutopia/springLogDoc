@@ -1,86 +1,82 @@
 # 事件处理
 
-Spring 框架提供了一个强大的事件处理机制，允许应用程序中的组件以松耦合的方式进行通信。通过使用事件，您可以在不同组件之间传递信息，而无需直接依赖。
+Spring 的事件处理机制是一种观察者模式的实现，允许组件之间进行松耦合通信。本文将介绍 Spring 事件处理的核心概念和使用方法。
 
-## 事件机制核心组件
+## 事件机制概述
 
-Spring 事件系统基于观察者设计模式，包含以下核心组件：
+Spring 事件机制由三个主要组件组成：
 
 1. **事件（Event）**：包含要传递的信息
-2. **事件发布者（Event Publisher）**：发布事件的组件
-3. **事件监听器（Event Listener）**：接收并处理事件的组件
+2. **事件发布者（Publisher）**：发布事件
+3. **事件监听器（Listener）**：接收并处理事件
 
 ## 内置事件
 
-Spring 框架提供了几种内置事件：
+Spring 框架提供了一些内置事件：
 
 - **ContextRefreshedEvent**：ApplicationContext 初始化或刷新时发布
 - **ContextStartedEvent**：ApplicationContext 启动时发布
 - **ContextStoppedEvent**：ApplicationContext 停止时发布
 - **ContextClosedEvent**：ApplicationContext 关闭时发布
-- **RequestHandledEvent**：HTTP 请求处理完成时发布（在 Web 应用中）
 
 ## 自定义事件
 
 ### 1. 创建自定义事件
 
-自定义事件需要继承 `ApplicationEvent` 类：
+自定义事件需要继承 ApplicationEvent 类：
 
 ```java
-public class BookCreatedEvent extends ApplicationEvent {
-    private final Book book;
+public class UserCreatedEvent extends ApplicationEvent {
     
-    public BookCreatedEvent(Object source, Book book) {
+    private final String username;
+    
+    public UserCreatedEvent(Object source, String username) {
         super(source);
-        this.book = book;
+        this.username = username;
     }
     
-    public Book getBook() {
-        return book;
+    public String getUsername() {
+        return username;
     }
 }
 ```
 
 ### 2. 发布事件
 
-使用 `ApplicationEventPublisher` 发布事件：
+使用 ApplicationEventPublisher 发布事件：
 
 ```java
 @Service
-public class BookService {
-    private final BookRepository bookRepository;
-    private final ApplicationEventPublisher eventPublisher;
+public class UserService {
     
     @Autowired
-    public BookService(BookRepository bookRepository, ApplicationEventPublisher eventPublisher) {
-        this.bookRepository = bookRepository;
-        this.eventPublisher = eventPublisher;
-    }
+    private ApplicationEventPublisher eventPublisher;
     
-    public Book createBook(Book book) {
-        Book savedBook = bookRepository.save(book);
+    public void createUser(String username, String password) {
+        // 创建用户的业务逻辑
+        User user = new User(username, password);
+        userRepository.save(user);
+        
         // 发布事件
-        eventPublisher.publishEvent(new BookCreatedEvent(this, savedBook));
-        return savedBook;
+        eventPublisher.publishEvent(new UserCreatedEvent(this, username));
     }
 }
 ```
 
 ### 3. 监听事件
 
-有两种方式可以监听事件：
+有两种方式监听事件：
 
-#### 使用 @EventListener 注解（推荐）
+#### 使用 @EventListener 注解
 
 ```java
 @Component
-public class BookEventListener {
-    private static final Logger logger = LoggerFactory.getLogger(BookEventListener.class);
+public class UserEventListener {
     
     @EventListener
-    public void handleBookCreatedEvent(BookCreatedEvent event) {
-        Book book = event.getBook();
-        logger.info("新书已创建: {} (作者: {})", book.getTitle(), book.getAuthor());
+    public void handleUserCreatedEvent(UserCreatedEvent event) {
+        System.out.println("新用户已创建: " + event.getUsername());
+        // 执行其他操作，如发送欢迎邮件
     }
 }
 ```
@@ -89,112 +85,71 @@ public class BookEventListener {
 
 ```java
 @Component
-public class BookCreatedListener implements ApplicationListener<BookCreatedEvent> {
-    private static final Logger logger = LoggerFactory.getLogger(BookCreatedListener.class);
+public class UserCreatedListener implements ApplicationListener<UserCreatedEvent> {
     
     @Override
-    public void onApplicationEvent(BookCreatedEvent event) {
-        Book book = event.getBook();
-        logger.info("新书已创建: {} (作者: {})", book.getTitle(), book.getAuthor());
+    public void onApplicationEvent(UserCreatedEvent event) {
+        System.out.println("新用户已创建: " + event.getUsername());
+        // 执行其他操作
     }
 }
 ```
 
 ## 异步事件处理
 
-默认情况下，事件处理是同步的。要启用异步事件处理：
+默认情况下，事件处理是同步的。要启用异步处理，需要：
+
+1. 在配置类上添加 @EnableAsync 注解
+2. 在事件监听器方法上添加 @Async 注解
 
 ```java
 @Configuration
 @EnableAsync
 public class AsyncConfig {
-    // 配置异步执行器
+    // 可以配置自定义的任务执行器
     @Bean
     public Executor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(5);
         executor.setMaxPoolSize(10);
         executor.setQueueCapacity(25);
-        executor.setThreadNamePrefix("EventExecutor-");
-        executor.initialize();
         return executor;
     }
 }
 
 @Component
-public class AsyncBookEventListener {
-    private static final Logger logger = LoggerFactory.getLogger(AsyncBookEventListener.class);
+public class AsyncEventListener {
     
     @Async
     @EventListener
-    public void handleBookCreatedEvent(BookCreatedEvent event) {
+    public void handleUserCreatedEvent(UserCreatedEvent event) {
         // 异步处理事件
-        logger.info("异步处理新书创建事件: {}", event.getBook().getTitle());
     }
 }
 ```
 
-## 事件监听顺序
+## 事件顺序
 
-使用 `@Order` 注解控制多个监听器的执行顺序：
+如果需要控制多个监听器的执行顺序，可以使用 @Order 注解：
 
 ```java
 @Component
-public class BookEventListeners {
+public class OrderedEventListeners {
     
     @EventListener
-    @Order(1) // 最高优先级
-    public void logNewBook(BookCreatedEvent event) {
-        System.out.println("1. 记录新书: " + event.getBook().getTitle());
+    @Order(1)
+    public void firstListener(UserCreatedEvent event) {
+        // 首先执行
     }
     
     @EventListener
     @Order(2)
-    public void notifyAdmin(BookCreatedEvent event) {
-        System.out.println("2. 通知管理员: " + event.getBook().getTitle());
-    }
-    
-    @EventListener
-    @Order(3) // 最低优先级
-    public void updateStatistics(BookCreatedEvent event) {
-        System.out.println("3. 更新统计信息");
+    public void secondListener(UserCreatedEvent event) {
+        // 其次执行
     }
 }
 ```
 
-## 事件过滤
+## 总结
 
-使用 `condition` 属性过滤事件：
-
-```java
-@Component
-public class ConditionalEventListener {
-    
-    @EventListener(condition = "#event.book.price > 100")
-    public void handleExpensiveBookEvent(BookCreatedEvent event) {
-        System.out.println("昂贵图书已创建: " + event.getBook().getTitle());
-    }
-}
-```
-
-## 事务事件
-
-Spring 提供了 `@TransactionalEventListener` 注解，可以将事件监听与事务绑定：
-
-```java
-@Component
-public class TransactionalBookListener {
-    
-    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void handleBookCreatedEvent(BookCreatedEvent event) {
-        // 只有在事务成功提交后才会执行
-        System.out.println("事务提交后: 新书已创建 " + event.getBook().getTitle());
-    }
-}
-```
-
-`TransactionPhase` 可以是：
-- `BEFORE_COMMIT`：事务提交前
-- `AFTER_COMMIT`：事务提交后（默认）
-- `AFTER_ROLLBACK`：事务回滚后
-- `AFTER_COMPLETION`：事务完成后（提交或回滚）
+Spring 事件机制提供了一种优雅的方式来实现应用程序组件之间的松耦合通信。通过事件驱动的设计，可以使代码更加模块化，提高系统的可维护性和扩展性。

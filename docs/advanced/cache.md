@@ -1,46 +1,136 @@
 # 缓存
 
-Spring 框架提供了强大且灵活的缓存抽象，允许您轻松地将缓存功能集成到应用程序中，从而提高性能和响应速度。
+Spring 框架提供了强大的缓存抽象，可以轻松地将缓存集成到应用程序中，提高性能。本文将介绍 Spring 缓存的核心概念和使用方法。
 
 ## 缓存概述
 
-缓存是一种临时存储机制，用于存储计算成本高或访问频率高的数据，以减少重复计算或数据库访问。Spring 的缓存抽象提供了一个统一的接口，可以集成各种缓存提供商。
+缓存是一种临时存储机制，用于存储经常访问的数据，以减少数据库查询或复杂计算的次数，从而提高应用程序性能。
+
+Spring 的缓存抽象具有以下特点：
+- 提供统一的缓存 API
+- 支持多种缓存实现
+- 使用注解驱动的方式简化缓存操作
 
 ## 启用缓存
 
-要在 Spring 应用程序中启用缓存，首先需要添加 `@EnableCaching` 注解到配置类：
+要在 Spring 应用程序中启用缓存，需要添加 `@EnableCaching` 注解到配置类：
 
 ```java
 @Configuration
 @EnableCaching
 public class CachingConfig {
-    // 缓存配置
+    
+    @Bean
+    public CacheManager cacheManager() {
+        SimpleCacheManager cacheManager = new SimpleCacheManager();
+        cacheManager.setCaches(Arrays.asList(
+            new ConcurrentMapCache("books"),
+            new ConcurrentMapCache("authors")
+        ));
+        return cacheManager;
+    }
 }
 ```
 
-## 缓存管理器
+## 缓存注解
 
-Spring 支持多种缓存管理器，包括：
+Spring 提供了几个关键的缓存注解：
 
-### 1. SimpleCacheManager
+### @Cacheable
 
-最简单的缓存管理器，适用于测试环境：
+用于缓存方法的返回值。当调用带有此注解的方法时，Spring 首先检查缓存，如果找到匹配的结果，则直接返回缓存的结果，而不执行方法。
 
 ```java
-@Bean
-public CacheManager cacheManager() {
-    SimpleCacheManager cacheManager = new SimpleCacheManager();
-    cacheManager.setCaches(Arrays.asList(
-        new ConcurrentMapCache("books"),
-        new ConcurrentMapCache("authors")
-    ));
-    return cacheManager;
+@Service
+public class BookService {
+    
+    @Autowired
+    private BookRepository bookRepository;
+    
+    @Cacheable("books")
+    public Book findBookById(Long id) {
+        System.out.println("从数据库获取图书: " + id);
+        return bookRepository.findById(id).orElse(null);
+    }
+    
+    @Cacheable(value = "books", key = "#title")
+    public List<Book> findBooksByTitle(String title) {
+        System.out.println("从数据库获取图书，标题: " + title);
+        return bookRepository.findByTitle(title);
+    }
 }
 ```
 
-### 2. ConcurrentMapCacheManager
+### @CachePut
 
-基于 `ConcurrentHashMap` 的缓存管理器，适用于单服务器环境：
+用于更新缓存，但不影响方法执行。方法总是会被执行，其结果会被放入缓存。
+
+```java
+@CachePut(value = "books", key = "#book.id")
+public Book updateBook(Book book) {
+    System.out.println("更新图书: " + book.getId());
+    return bookRepository.save(book);
+}
+```
+
+### @CacheEvict
+
+用于从缓存中删除一个或多个条目。
+
+```java
+@CacheEvict(value = "books", key = "#id")
+public void deleteBook(Long id) {
+    System.out.println("删除图书: " + id);
+    bookRepository.deleteById(id);
+}
+
+@CacheEvict(value = "books", allEntries = true)
+public void clearBooksCache() {
+    System.out.println("清除所有图书缓存");
+}
+```
+
+### @Caching
+
+用于组合多个缓存操作。
+
+```java
+@Caching(
+    evict = {
+        @CacheEvict(value = "books", key = "#book.id"),
+        @CacheEvict(value = "booksByAuthor", key = "#book.author.id")
+    },
+    put = {
+        @CachePut(value = "books", key = "#result.id")
+    }
+)
+public Book updateBookDetails(Book book) {
+    // 更新图书
+    return bookRepository.save(book);
+}
+```
+
+## 条件缓存
+
+可以使用 `condition` 和 `unless` 属性添加缓存条件：
+
+```java
+@Cacheable(
+    value = "books", 
+    key = "#id",
+    condition = "#id > 0",           // 只有当 ID > 0 时才缓存
+    unless = "#result == null"        // 如果结果为 null，则不缓存
+)
+public Book findBookById(Long id) {
+    return bookRepository.findById(id).orElse(null);
+}
+```
+
+## 缓存实现
+
+Spring 支持多种缓存实现：
+
+### 1. 简单内存缓存
 
 ```java
 @Bean
@@ -49,163 +139,59 @@ public CacheManager cacheManager() {
 }
 ```
 
-### 3. EhCacheCacheManager
-
-集成 EhCache 缓存：
+### 2. Caffeine 缓存
 
 ```java
 @Bean
 public CacheManager cacheManager() {
-    return new EhCacheCacheManager(ehCacheManager());
-}
-
-@Bean
-public EhCacheManagerFactoryBean ehCacheManager() {
-    EhCacheManagerFactoryBean factory = new EhCacheManagerFactoryBean();
-    factory.setConfigLocation(new ClassPathResource("ehcache.xml"));
-    return factory;
+    CaffeineCacheManager cacheManager = new CaffeineCacheManager("books");
+    cacheManager.setCaffeine(Caffeine.newBuilder()
+        .expireAfterWrite(60, TimeUnit.MINUTES)
+        .maximumSize(100));
+    return cacheManager;
 }
 ```
 
-### 4. RedisCacheManager
-
-使用 Redis 作为分布式缓存：
+### 3. Redis 缓存
 
 ```java
 @Bean
 public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
-    RedisCacheConfiguration cacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
-        .entryTtl(Duration.ofMinutes(10))
-        .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-        .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
-    
-    return RedisCacheManager.builder(redisConnectionFactory)
-        .cacheDefaults(cacheConfiguration)
+    RedisCacheManager cacheManager = RedisCacheManager.builder(redisConnectionFactory)
+        .cacheDefaults(RedisCacheConfiguration.defaultCacheConfig()
+            .entryTtl(Duration.ofMinutes(10)))
         .build();
+    return cacheManager;
 }
 ```
 
-## 缓存注解
+## 缓存键生成
 
-Spring 提供了多种缓存注解：
-
-### 1. @Cacheable
-
-缓存方法的返回值：
+Spring 默认使用方法参数作为缓存键，但可以自定义键生成策略：
 
 ```java
-@Service
-public class BookService {
-    
-    @Cacheable(value = "books", key = "#id")
-    public Book findBookById(Long id) {
-        // 此方法的结果将被缓存
-        // 如果缓存中存在相同 id 的结果，则直接返回缓存值而不执行方法
-        System.out.println("从数据库获取图书: " + id);
-        return bookRepository.findById(id).orElse(null);
-    }
-    
-    @Cacheable(value = "books", key = "#author", condition = "#author.length() > 3")
-    public List<Book> findBooksByAuthor(String author) {
-        // 只有当作者名长度大于 3 时才缓存结果
-        System.out.println("从数据库获取作者图书: " + author);
-        return bookRepository.findByAuthor(author);
-    }
+@Bean
+public KeyGenerator keyGenerator() {
+    return new KeyGenerator() {
+        @Override
+        public Object generate(Object target, Method method, Object... params) {
+            return target.getClass().getSimpleName() + ":" + 
+                   method.getName() + ":" + 
+                   StringUtils.arrayToDelimitedString(params, "_");
+        }
+    };
 }
 ```
 
-### 2. @CachePut
-
-更新缓存，但始终执行方法：
+使用自定义键生成器：
 
 ```java
-@CachePut(value = "books", key = "#book.id")
-public Book updateBook(Book book) {
-    // 此方法总是会执行，并将结果放入缓存
-    System.out.println("更新图书: " + book.getId());
-    return bookRepository.save(book);
+@Cacheable(value = "books", keyGenerator = "keyGenerator")
+public Book findBook(String isbn, String title) {
+    // 方法实现
 }
 ```
 
-### 3. @CacheEvict
+## 总结
 
-从缓存中删除条目：
-
-```java
-@CacheEvict(value = "books", key = "#id")
-public void deleteBook(Long id) {
-    // 从缓存中删除指定 id 的图书
-    System.out.println("删除图书: " + id);
-    bookRepository.deleteById(id);
-}
-
-@CacheEvict(value = "books", allEntries = true)
-public void clearAllBooks() {
-    // 清除 "books" 缓存中的所有条目
-    System.out.println("清除所有图书缓存");
-}
-```
-
-### 4. @Caching
-
-组合多个缓存操作：
-
-```java
-@Caching(
-    evict = { @CacheEvict(value = "booksByTitle", key = "#book.title") },
-    put = { @CachePut(value = "books", key = "#book.id") }
-)
-public Book updateBookTitle(Book book, String newTitle) {
-    book.setTitle(newTitle);
-    return bookRepository.save(book);
-}
-```
-
-## 自定义键生成器
-
-自定义缓存键的生成方式：
-
-```java
-@Configuration
-@EnableCaching
-public class CachingConfig {
-    
-    @Bean
-    public KeyGenerator bookKeyGenerator() {
-        return (target, method, params) -> {
-            StringBuilder key = new StringBuilder();
-            key.append(target.getClass().getSimpleName());
-            key.append(":");
-            key.append(method.getName());
-            
-            for (Object param : params) {
-                key.append(":");
-                key.append(param.toString());
-            }
-            
-            return key.toString();
-        };
-    }
-}
-
-@Service
-public class BookService {
-    
-    @Cacheable(value = "books", keyGenerator = "bookKeyGenerator")
-    public Book findBookByIsbn(String isbn) {
-        return bookRepository.findByIsbn(isbn);
-    }
-}
-```
-
-## 缓存同步
-
-在分布式环境中，确保缓存同步非常重要。使用 Redis 或 Hazelcast 等分布式缓存可以解决这个问题。
-
-## 最佳实践
-
-1. **选择合适的缓存提供商**：根据应用程序的需求选择合适的缓存提供商（内存、Redis、Ehcache 等）
-2. **设置合理的缓存过期时间**：避免缓存过期太快（降低缓存效果）或太慢（数据过时）
-3. **使用有意义的缓存键**：确保缓存键能唯一标识缓存内容
-4. **避免缓存过大对象**：大对象会占用大量内存，可能导致性能问题
-5. **监控缓存性能**：跟踪缓存命中率和使用情况，及时调整缓存策略 
+Spring 缓存抽象提供了一种简单而强大的方式来集成缓存功能，可以显著提高应用程序性能。通过注解驱动的方式，开发人员可以专注于业务逻辑，而将缓存管理交给 Spring 框架。 
