@@ -1,16 +1,15 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: 'Spring 学习文档',
-  description: '全面的 Spring 框架学习指南',
+  title: 'Spring Log Doc',
+  description: 'Spring Agent 监控平台文档',
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
       { text: '指南', link: '/guide/' },
-      { text: '准备工作', link: '/preparation/' },
-      { text: '快速入门', link: '/quickstart/' },
-      { text: '实战演练', link: '/practice/' },
-      { text: '高级特性', link: '/advanced/' },
+      { text: '实践', link: '/practice/' },
+      { text: '进阶', link: '/advanced/' },
+      { text: '合作伙伴', link: '/partners' }
     ],
     sidebar: {
       '/guide/': [
