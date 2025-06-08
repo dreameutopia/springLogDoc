@@ -2,7 +2,7 @@
 layout: home
 hero:
   name: Spring Log Doc
-  text: Spring 框架学习与实践文档
+  text: Spring 框架学习文档
   tagline: 全面了解 Spring 生态系统的核心概念和最佳实践
   image:
     src: /logo.png
@@ -11,22 +11,10 @@ hero:
     - theme: brand
       text: 开始学习
       link: /guide/
-    - theme: alt
-      text: 查看示例
-      link: /examples/
 features:
   - icon: 🚀
     title: Spring Boot
     details: 快速构建基于 Spring 的生产级应用程序，简化配置过程
-  - icon: 🔄
-    title: Spring Cloud
-    details: 为分布式系统和微服务架构提供工具和框架支持
-  - icon: 🛡️
-    title: Spring Security
-    details: 为应用程序提供全面的安全性解决方案
-  - icon: 📊
-    title: Spring Data
-    details: 简化数据访问技术，支持关系型和非关系型数据库
 ---
 
 # Spring 框架学习文档
