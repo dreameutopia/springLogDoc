@@ -118,12 +118,9 @@ footer:
 
 .partners-scroll {
   display: flex;
-  animation: scrollPartners 40s linear infinite;
+  animation: none;
   gap: 3rem;
-}
-
-.partners-scroll:hover {
-  animation-play-state: paused;
+  width: fit-content;
 }
 
 .partner-item {
@@ -192,15 +189,6 @@ footer:
 
 .partner-item:hover .partner-logo {
   transform: scale(1.15);
-}
-
-@keyframes scrollPartners {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-50%));
-  }
 }
 </style>
 
