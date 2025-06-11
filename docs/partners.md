@@ -7,43 +7,43 @@ Spring Log Doc 与众多行业领先的技术公司和组织合作，共同推�
 <div class="partners-grid">
   <div class="partner-card">
     <div class="partner-logo">🏢</div>
-    <div class="partner-name">科技公司A</div>
+    <div class="partner-name">火山引擎</div>
     <div class="partner-desc">提供云基础设施和容器编排技术支持</div>
   </div>
   
   <div class="partner-card">
     <div class="partner-logo">📊</div>
-    <div class="partner-name">数据公司B</div>
+    <div class="partner-name">阿里云百炼</div>
     <div class="partner-desc">专注于大数据处理和分析解决方案</div>
   </div>
   
   <div class="partner-card">
     <div class="partner-logo">💻</div>
-    <div class="partner-name">开发公司C</div>
+    <div class="partner-name">硅基流动</div>
     <div class="partner-desc">提供微服务架构和API设计咨询</div>
   </div>
   
   <div class="partner-card">
     <div class="partner-logo">☁️</div>
-    <div class="partner-name">云服务D</div>
+    <div class="partner-name">ModelScope</div>
     <div class="partner-desc">提供全球云计算基础设施和PaaS服务</div>
   </div>
   
   <div class="partner-card">
     <div class="partner-logo">🔒</div>
-    <div class="partner-name">安全公司E</div>
-    <div class="partner-desc">专注于应用安全和合规性解决方案</div>
+    <div class="partner-name">武汉大学</div>
+    <div class="partner-desc">共同合作开发</div>
   </div>
   
   <div class="partner-card">
     <div class="partner-logo">📚</div>
-    <div class="partner-name">教育机构F</div>
-    <div class="partner-desc">提供Spring技术培训和认证服务</div>
+    <div class="partner-name">西安交通大学</div>
+    <div class="partner-desc">共同合作开发</div>
   </div>
   
   <div class="partner-card">
     <div class="partner-logo">📈</div>
-    <div class="partner-name">咨询公司G</div>
+    <div class="partner-name">相关企业</div>
     <div class="partner-desc">提供企业数字化转型和技术战略咨询</div>
   </div>
   
