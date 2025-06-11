@@ -24,14 +24,9 @@
 - JVM 参数自动生成：通过在启动应用时添加 JVM 参数 -XX:+HeapDumpOnOutOfMemoryError，可以在发生 OutOfMemoryError 时自动生成堆转储文件。可以使用 -XX:HeapDumpPath=<file-or-dir-path> 指定转储文件的路径和名称 。这是生产环境中推荐的做法，因为它能在问题发生的确切时刻捕获现场
 
 - 命令行工具手动生成：jmap：JDK 自带工具，用于打印指定 Java 进程的内存映射信息或生成堆转储。其中 live 选项表示只转储存活对象，format=b 表示二进制格式，<pid> 是 Java 进程 ID（可通过 jps 命令获取）。需要注意，jmap 在某些 JDK 版本中被标记为实验性且不受支持，可能会对应用性能产生影响 。
-```Bash
-jmap -dump:live,format=b,file=<file-path.hprof> <pid>
-```
+
 - jcmd：JDK 8 及以后版本推荐使用的多功能诊断命令工具，相较于 jmap，性能开销更小 。
    
-```Bash
-jcmd <pid> GC.heap_dump <file-path.hprof>
-```
 
 - 图形化工具生成
   - JVisualVM：连接到目标 Java 进程后，在“监视”选项卡中点击“堆 Dump”按钮，或在“应用程序”节点右键选择“堆 Dump” 。   
